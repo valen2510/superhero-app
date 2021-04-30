@@ -1,7 +1,7 @@
 html {
   overflow: hidden;
 }
-body {
+body{
   position: absolute;
   margin: 0;
   padding: 0;
@@ -11,9 +11,19 @@ body {
 body, input, button {
   font-family: 'Roboto Condensed', sans-serif;
 }
-.column {
+nav.navbar {
+  padding: 0.5rem 1rem;
+}
+footer.footer{
+  padding: 0.5rem 0.5rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.column.principal {
   position: absolute;
   display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -21,4 +31,43 @@ body, input, button {
   background-image: url('./images/heroes-bg.jpg');
   background-size: cover;
 }
-
+.columns {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@media screen and (min-width: 770px){
+  .card .card-content{
+    min-width: 400px;
+  }
+  .column.is-half {
+    width: 70%;
+    margin-left: 17%;
+  }
+  .column.is-half.is-offset-3 .content table.table {
+    width: 57%;
+    margin-left: 7%;
+  }
+ 
+}
+@media screen and (min-width: 770px) and (max-width: 1024px){
+  .column.is-3 {
+    width: 52%;
+  }
+  .columns {
+    width: 60%;
+    display: flex;
+  }
+  .column.is-3 .content table.table {
+    width: 40%;
+    margin-left: 2%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .column.is-3 {
+    width: 25%;
+  }
+  .column.is-3 .content table.table {
+    width: 38%;
+    margin-left: 2%;
+  }
+}
