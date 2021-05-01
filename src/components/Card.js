@@ -1,6 +1,13 @@
 import React from 'react';
 
-function Card({ image, powerstats, name }) {
+function Card({ image, powerstats, name, isFlipped }) {
+  function colorStat(stat) {
+    if (stat > 49) {
+      return 'tag is-success';
+    }
+    return 'tag is-danger';
+  }
+
   return (
     <div className='card'>
       <div className='card-image'>
@@ -10,47 +17,75 @@ function Card({ image, powerstats, name }) {
       </div>
       <div className='card-content mx-3 p-0 pt-2'>
         <div className='content is-small'>
-          <div className='subtitle is-size-5 ml-5'>{name}</div>
+          <div className='subtitle is-5 mb-3 is-uppercase has-text-weight-semibold '>
+            {name}
+          </div>
           <table className='table is-narrow'>
             <tbody>
               <tr>
                 <th>Intelligence</th>
-                <td>{powerstats.intelligence}</td>
+                <td>
+                  <span className={colorStat(powerstats.intelligence)}>
+                    {powerstats.intelligence}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <th>Power</th>
-                <td>{powerstats.power}</td>
+                <td>
+                  <span className={colorStat(powerstats.power)}>
+                    {powerstats.power}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <th>Combat</th>
-                <td>{powerstats.combat}</td>
+                <td>
+                  <span className={colorStat(powerstats.combat)}>
+                    {powerstats.combat}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <th>Speed</th>
-                <td>{powerstats.speed}</td>
+                <td>
+                  <span className={colorStat(powerstats.speed)}>
+                    {powerstats.speed}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <th>Strength</th>
-                <td>{powerstats.strength}</td>
+                <td>
+                  <span className={colorStat(powerstats.strength)}>
+                    {powerstats.strength}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <th>Durability</th>
-                <td>{powerstats.durability}</td>
+                <td>
+                  <span className={colorStat(powerstats.durability)}>
+                    {powerstats.durability}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <footer className='card-footer'>
-        <a href='#' className='card-footer-item'>
-          Detalles
-        </a>
-        <a href='#' className='card-footer-item'>
-          Eliminar
-        </a>
+        <button
+          onClick={() => isFlipped(false)}
+          className='card-footer-item button is-light is-link '
+        >
+          Details
+        </button>
+        <button className='card-footer-item button is-light is-link '>
+          Delete
+        </button>
       </footer>
     </div>
   );
 }
-
 export default Card;

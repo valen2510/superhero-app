@@ -35,6 +35,7 @@ footer.footer{
   overflow-y: auto;
   overflow-x: hidden;
 }
+
 @media screen and (min-width: 770px){
   .card .card-content{
     min-width: 400px;
@@ -44,8 +45,8 @@ footer.footer{
     margin-left: 17%;
   }
   .column.is-half.is-offset-3 .content table.table {
-    width: 57%;
-    margin-left: 7%;
+    width: 58%;
+    margin-left: 5%;
   }
  
 }

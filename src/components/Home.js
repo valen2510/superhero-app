@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import CardBack from './CardBack';
 import Spinner from './Spinner';
+import ReactCardFlip from 'react-card-flip';
 
 function Home({ url }) {
   const [teamHeroes, setTeamHeroes] = useState([]);
   const [displayTeam, setDisplayTeam] = useState(false);
+  const [flip, isFlipped] = useState(true);
 
   async function getHeroes() {
     const response = await fetch(`${url}644`).catch((err) =>
@@ -17,14 +20,13 @@ function Home({ url }) {
 
   useEffect(async () => {
     const heroesData = await getHeroes();
-    setTeamHeroes([...teamHeroes, heroesData]);
+    setTeamHeroes((teamHeroes) => [...teamHeroes, heroesData]);
     setDisplayTeam(true);
   }, []);
   return (
     <>
       {displayTeam ? (
-        teamHeroes.map((character) => {
-          console.log(character);
+        teamHeroes.map((character, i) => {
           return (
             <div
               className={
@@ -33,11 +35,24 @@ function Home({ url }) {
                   : 'column is-half is-offset-3'
               }
             >
-              <Card
-                name={character.name.toString()}
-                image={character.image}
-                powerstats={character.powerstats}
-              />
+              <ReactCardFlip isFlipped={!flip} flipDirection='vertical'>
+                <Card
+                  name={character.name}
+                  image={character.image}
+                  powerstats={character.powerstats}
+                  isFlipped={isFlipped}
+                  key={i}
+                />
+                <CardBack
+                  appearance={character.appearance}
+                  biography={character.biography}
+                  image={character.image}
+                  work={character.work}
+                  name={character.name}
+                  isFlipped={isFlipped}
+                  key={i}
+                />
+              </ReactCardFlip>
             </div>
           );
         })
