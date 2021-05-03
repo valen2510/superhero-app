@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from './Footer';
 import Spinner from './Spinner';
 import Results from './Results';
 
@@ -48,10 +49,12 @@ function Search({ url }) {
                     name={character.name}
                     image={character.image.url}
                     id={character.id}
+                    url={url}
                   />
                 </div>
               );
             })}
+            <Footer teamHeroes={result.results} />
           </div>
         ) : (
           <p className='has-text-danger-dark'>{result.error}</p>
@@ -59,6 +62,7 @@ function Search({ url }) {
       ) : displayResult !== null ? (
         <Spinner />
       ) : null}
+      {result.response === 'success' ? null : <Footer teamHeroes={result} />}
     </>
   );
 }

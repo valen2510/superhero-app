@@ -23,6 +23,7 @@ footer.footer, .bottom{
 }
 footer.bottom.footer {
   position: absolute;
+  right: 0;
 }
 .column.principal {
   position: absolute;
