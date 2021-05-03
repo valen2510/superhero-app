@@ -2,30 +2,26 @@ import React from 'react';
 
 function CardBack({ appearance, biography, image, work, name, isFlipped }) {
   const alignment = biography.alignment === 'good' ? 'Hero' : 'Villain';
+  const base = work.base.split(', ');
   return (
     <div className='card'>
       <div className='card-content mx-3 p-0 pt-2'>
         <div className='media'>
           <div className='media-left'>
-            <figure className='image is-128x128 is-square'>
-              <img src={image.url} alt='Hero' />
+            <figure className='image is-96x96 is-square'>
+              <img src={image.url} alt={name} />
             </figure>
           </div>
           <div className='media-content'>
-            <p className='subtitle is-4 has-text-weight-semibold is-uppercase mb-0'>
-              {name}
-            </p>
+            <p className='has-text-weight-semibold is-uppercase mb-0'>{name}</p>
             <p className='subtitle is-6 mb-2'>{biography.aliases[0]}</p>
-            <div className='tags has-addons'>
-              <span className='tag is-dark'>Alignment</span>
-              <span
-                className={
-                  alignment !== 'Hero' ? 'tag is-danger' : 'tag is-success'
-                }
-              >
-                {alignment}
-              </span>
-            </div>
+            <span
+              className={
+                alignment !== 'Hero' ? 'tag is-danger' : 'tag is-success'
+              }
+            >
+              {alignment}
+            </span>
           </div>
         </div>
         <div className='content is-small'>
@@ -44,7 +40,7 @@ function CardBack({ appearance, biography, image, work, name, isFlipped }) {
               </tr>
               <tr>
                 <th>Residence</th>
-                <td>{work.base}</td>
+                <td>{base ? base[0] : work.base}</td>
               </tr>
               <tr>
                 <th>Weight</th>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Footer() {
+function Footer({ teamHeroes }) {
   return (
-    <footer className='footer'>
+    <footer className={teamHeroes.length === 0 ? 'bottom footer' : 'footer'}>
       <div className='content has-text-centered'>
         <p>
           <strong>SuperHero app</strong> por{' '}

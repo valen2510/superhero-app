@@ -14,11 +14,15 @@ body, input, button {
 nav.navbar {
   padding: 0.5rem 1rem;
 }
-footer.footer{
-  padding: 0.5rem 0.5rem;
+footer.footer, .bottom{
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.253);
+  padding: 0.2rem 0.2rem;
   width: 100%;
-  position: fixed;
   bottom: 0;
+}
+footer.bottom.footer {
+  position: absolute;
 }
 .column.principal {
   position: absolute;
@@ -35,18 +39,28 @@ footer.footer{
   overflow-y: auto;
   overflow-x: hidden;
 }
+.level {
+  border-radius: 5px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3273dcb0; 
+  border-radius: 1px;
+}
 @media screen and (min-width: 770px){
   .card .card-content{
     min-width: 400px;
-  }
-  .column.is-half {
-    width: 70%;
-    margin-left: 17%;
-  }
-  .column.is-half.is-offset-3 .content table.table {
-    width: 58%;
-    margin-left: 5%;
   }
  
 }
@@ -57,18 +71,40 @@ footer.footer{
   .columns {
     width: 60%;
     display: flex;
+    justify-content: center;
   }
   .column.is-3 .content table.table {
     width: 40%;
     margin-left: 2%;
   }
+  .media {
+    width: 46%;
+  }
+  .level {
+    flex-wrap: wrap;
+  }
+
 }
 @media screen and (min-width: 1024px) {
   .column.is-3 {
     width: 25%;
   }
-  .column.is-3 .content table.table {
-    width: 38%;
-    margin-left: 2%;
+  .columns {
+    width: 100%;
   }
+  .column.is-3 .content table.table {
+    width: 47%;
+    margin-left: 5%;
+  }
+  .media {
+    width: 52%;
+  }
+  
+}
+@media screen and (min-width: 1380px) {
+
+  .column.is-3 .content table.table {
+    width: 65%;
+    margin-left: 10%;
+  } 
 }

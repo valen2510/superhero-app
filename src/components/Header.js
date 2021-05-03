@@ -35,7 +35,7 @@ function Header({ setIsAuth }) {
             Home
           </a>
           <a className='navbar-item' href='/search'>
-            Buscar heroe
+            Search character
           </a>
         </div>
         <div className='navbar-end'>

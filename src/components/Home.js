@@ -1,64 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import CardBack from './CardBack';
 import Spinner from './Spinner';
-import ReactCardFlip from 'react-card-flip';
+import Footer from './Footer';
+import AverageSummary from './AverageSummary';
 
 function Home({ url }) {
   const [teamHeroes, setTeamHeroes] = useState([]);
   const [displayTeam, setDisplayTeam] = useState(false);
-  const [flip, isFlipped] = useState(true);
 
-  async function getHeroes() {
-    const response = await fetch(`${url}644`).catch((err) =>
-      alert(err.message)
-    );
-    if (response.ok) {
-      return response.json();
-    }
+  function deleteCharacter(index) {
+    const team = JSON.parse(localStorage.getItem('team'));
+    team.splice(index, 1);
+    setTeamHeroes(team);
+    localStorage.setItem('team', JSON.stringify(team));
   }
 
-  useEffect(async () => {
-    const heroesData = await getHeroes();
-    setTeamHeroes((teamHeroes) => [...teamHeroes, heroesData]);
-    setDisplayTeam(true);
-  }, []);
+  async function getHeroes(team) {
+    return await Promise.all(
+      team.map(async function (characterId) {
+        const response = await fetch(`${url}${characterId}`).catch((err) =>
+          alert(err.message)
+        );
+        if (response.ok) {
+          return response.json();
+        }
+      })
+    );
+  }
+
+  useEffect(() => {
+    async function getTeam() {
+      const team = JSON.parse(localStorage.getItem('team')) || [];
+      const heroesData = await getHeroes(team);
+      setTeamHeroes(heroesData);
+      setDisplayTeam(true);
+    }
+    getTeam();
+    // eslint-disable-next-line
+  }, [displayTeam]);
+
   return (
     <>
-      {displayTeam ? (
-        teamHeroes.map((character, i) => {
-          return (
-            <div
-              className={
-                teamHeroes.length > 1
-                  ? 'column is-3'
-                  : 'column is-half is-offset-3'
-              }
-            >
-              <ReactCardFlip isFlipped={!flip} flipDirection='vertical'>
+      <div className='columns is-desktop is-multiline '>
+        <div className='column is-full'>
+          <AverageSummary teamHeroes={teamHeroes} />
+        </div>
+        {displayTeam ? (
+          teamHeroes.map((character, i) => {
+            if (character.response === 'error') {
+              return (
+                <div className='column is-3 ' key={i}>
+                  <div className='notification is-danger'>
+                    <button
+                      onClick={() => deleteCharacter(i)}
+                      className='delete'
+                    ></button>
+                    There was an error. The character had an {character.error}
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <div className='column is-3 ' key={i}>
                 <Card
-                  name={character.name}
-                  image={character.image}
-                  powerstats={character.powerstats}
-                  isFlipped={isFlipped}
-                  key={i}
+                  character={character}
+                  setTeamHeroes={setTeamHeroes}
+                  setDisplayTeam={setDisplayTeam}
                 />
-                <CardBack
-                  appearance={character.appearance}
-                  biography={character.biography}
-                  image={character.image}
-                  work={character.work}
-                  name={character.name}
-                  isFlipped={isFlipped}
-                  key={i}
-                />
-              </ReactCardFlip>
-            </div>
-          );
-        })
-      ) : (
-        <Spinner />
-      )}
+              </div>
+            );
+          })
+        ) : (
+          <Spinner />
+        )}
+        <Footer teamHeroes={teamHeroes} />
+      </div>
     </>
   );
 }

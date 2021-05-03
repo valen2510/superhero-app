@@ -23,8 +23,8 @@ function App() {
 
   return (
     <Router>
-      <Switch>
-        <div className='column is-desktop principal'>
+      <div className='column is-desktop principal pl-0'>
+        <Switch>
           {!isAuth ? (
             <Route path='/'>
               <Login setIsAuth={setIsAuth} />
@@ -32,8 +32,8 @@ function App() {
           ) : (
             <MainLayout setIsAuth={setIsAuth} />
           )}
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   );
 }
