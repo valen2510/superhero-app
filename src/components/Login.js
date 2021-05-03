@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heroesfaces from '../images/heroes-faces.PNG';
 import '../styles/Login.css';
 
-function Login() {
-  function handleSubmit(e) {
-    e.preventDefault();
+const URL = 'http://challenge-react.alkemy.org/';
+
+function Login({ setIsAuth }) {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  async function handleSubmit(e) {
+    const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    };
+    const response = await fetch(URL, data).catch((err) => err.message);
+    const result = await response.json();
+    if (response.ok) {
+      localStorage.setItem('token', result.token);
+      setIsAuth(true);
+    } else {
+      alert(result.error);
+    }
   }
 
   return (
@@ -17,7 +36,13 @@ function Login() {
       </p>
       <div className='field py-3'>
         <p className='control'>
-          <input className='input' type='email' placeholder='Email' required />
+          <input
+            className='input'
+            type='email'
+            placeholder='Email'
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </p>
       </div>
       <div className='field py-3'>
@@ -26,6 +51,7 @@ function Login() {
             className='input'
             type='password'
             placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </p>
