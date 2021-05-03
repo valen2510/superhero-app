@@ -6,10 +6,10 @@ function CardFront({ name, image, powerstats, id, isFlipped, setDisplayTeam }) {
   }
 
   function deleteCharacter() {
-    let team = JSON.parse(localStorage.getItem('team'));
-    team.splice(team.indexOf(id), 1);
+    const team = JSON.parse(localStorage.getItem('myTeam'));
+    const newTeam = team.filter((obj) => obj.id !== id);
     setDisplayTeam(false);
-    localStorage.setItem('team', JSON.stringify(team));
+    localStorage.setItem('myTeam', JSON.stringify(newTeam));
   }
 
   return (

@@ -9,30 +9,16 @@ function Home({ url }) {
   const [displayTeam, setDisplayTeam] = useState(false);
 
   function deleteCharacter(index) {
-    const team = JSON.parse(localStorage.getItem('team'));
+    const team = JSON.parse(localStorage.getItem('myTeam'));
     team.splice(index, 1);
-    setTeamHeroes(team);
-    localStorage.setItem('team', JSON.stringify(team));
-  }
-
-  async function getHeroes(team) {
-    return await Promise.all(
-      team.map(async function (characterId) {
-        const response = await fetch(`${url}${characterId}`).catch((err) =>
-          alert(err.message)
-        );
-        if (response.ok) {
-          return response.json();
-        }
-      })
-    );
+    setDisplayTeam(false);
+    localStorage.setItem('myTeam', JSON.stringify(team));
   }
 
   useEffect(() => {
-    async function getTeam() {
-      const team = JSON.parse(localStorage.getItem('team')) || [];
-      const heroesData = await getHeroes(team);
-      setTeamHeroes(heroesData);
+    function getTeam() {
+      const team = JSON.parse(localStorage.getItem('myTeam')) || [];
+      setTeamHeroes(team);
       setDisplayTeam(true);
     }
     getTeam();

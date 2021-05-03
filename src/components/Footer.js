@@ -2,7 +2,11 @@ import React from 'react';
 
 function Footer({ teamHeroes }) {
   return (
-    <footer className={teamHeroes.length === 0 ? 'bottom footer' : 'footer'}>
+    <footer
+      className={
+        teamHeroes && teamHeroes.length === 0 ? 'bottom footer' : 'footer'
+      }
+    >
       <div className='content has-text-centered'>
         <p>
           <strong>SuperHero app</strong> por{' '}
