@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import heroesfaces from '../images/heroes-faces.PNG';
 import '../styles/Login.css';
 
@@ -8,23 +9,23 @@ function Login({ setIsAuth }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  async function handleSubmit() {
-    const requestOptions = {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const config = {
+      url: URL,
       method: 'POST',
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: email, password: password }),
+      data: JSON.stringify({ email: email, password: password }),
     };
-    const response = await fetch(URL, requestOptions).catch(
-      (err) => err.message
-    );
-    const result = await response.json();
-    if (response.ok) {
-      localStorage.setItem('token', result.token);
-      setIsAuth(true);
+    const response = await axios(config).catch((err) => err);
+    if (response.data.error) {
+      alert(response.data.error);
     } else {
-      alert(result.error);
+      localStorage.setItem('token', response.token);
+      setIsAuth(true);
     }
   }
 
