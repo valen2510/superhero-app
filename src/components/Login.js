@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import heroesfaces from '../images/heroes-faces.PNG';
 import '../styles/Login.css';
 
-const URL = 'http://challenge-react.alkemy.org/';
+const URL = process.env.REACT_APP_AUTH_URL;
 
 function Login({ setIsAuth }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   async function handleSubmit(e) {
+    e.preventDefault();
     const data = {
       method: 'POST',
       headers: {
