@@ -4,7 +4,9 @@ function Footer({ teamHeroes }) {
   return (
     <footer
       className={
-        teamHeroes && teamHeroes.length === 0 ? 'bottom footer' : 'footer'
+        !teamHeroes.error && teamHeroes.length !== 0
+          ? 'footer'
+          : 'bottom footer'
       }
     >
       <div className='content has-text-centered'>

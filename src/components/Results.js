@@ -20,11 +20,12 @@ function Results({ name, image, id, url }) {
     let exists = false;
     if (currentTeam.length < 6) {
       currentTeam.forEach((obj) => {
-        obj.alignment === 'good' ? good++ : bad++;
+        obj.biography.alignment === 'good' ? good++ : bad++;
         if (obj.id === currentCharacter.id) {
           exists = true;
         }
       });
+
       if (!exists) {
         if (currentCharacter.biography.alignment === 'good' && good > 2) {
           alert('You can only have 3 heroes');
@@ -45,6 +46,7 @@ function Results({ name, image, id, url }) {
     const currentTeam = localStorage.getItem('myTeam')
       ? JSON.parse(localStorage.getItem('myTeam'))
       : [];
+    console.log(currentTeam);
     if (checkCharacter(currentTeam)) {
       currentTeam.push(currentCharacter);
       localStorage.setItem('myTeam', JSON.stringify(currentTeam));
