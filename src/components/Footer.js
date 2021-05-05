@@ -9,9 +9,9 @@ function Footer({ teamHeroes }) {
           : 'bottom footer'
       }
     >
-      <div className='content has-text-centered'>
+      <div className='content has-text-centered has-text-white'>
         <p>
-          <strong>SuperHero app</strong> por{' '}
+          <strong className='has-text-black'>SuperHero app</strong> por{' '}
           <a
             rel='noreferrer'
             href='https://www.linkedin.com/in/valenjaramillo/'

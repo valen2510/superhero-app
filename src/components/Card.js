@@ -3,7 +3,7 @@ import CardBack from './CardBack';
 import CardFront from './CardFront';
 import ReactCardFlip from 'react-card-flip';
 
-function Card({ setTeamHeroes, character, setDisplayTeam }) {
+function Card({ character, setDisplayTeam }) {
   const [flip, isFlipped] = useState(true);
 
   return (

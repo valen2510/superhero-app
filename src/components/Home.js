@@ -48,11 +48,7 @@ function Home({ url }) {
             }
             return (
               <div className='column is-3 ' key={i}>
-                <Card
-                  character={character}
-                  setTeamHeroes={setTeamHeroes}
-                  setDisplayTeam={setDisplayTeam}
-                />
+                <Card character={character} setDisplayTeam={setDisplayTeam} />
               </div>
             );
           })

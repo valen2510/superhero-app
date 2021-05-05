@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import imageNotFound from '../images/image-not-found.jpg';
 
-function Results({ name, image, id, url }) {
+function Results({ name, image, id, biography, url }) {
   const [currentCharacter, setCurrentCharacter] = useState({});
   const [isAdded, setIsAdded] = useState(false);
+  const alignment = biography.alignment === 'good' ? 'Hero' : 'Villain';
 
   async function getCharacter(characterId) {
     const response = await fetch(`${url}${characterId}`).catch((err) =>
@@ -76,6 +77,13 @@ function Results({ name, image, id, url }) {
       <header className='card-header'>
         <p className='card-header-title subtitle is-5 is-uppercase has-text-weight-semibold'>
           {name}
+          <span
+            className={`tag ml-1 ${
+              alignment !== 'Hero' ? 'is-danger' : 'is-success'
+            }`}
+          >
+            {alignment}
+          </span>
         </p>
       </header>
       <div className='card-image'>

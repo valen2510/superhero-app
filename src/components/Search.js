@@ -9,8 +9,8 @@ function Search({ url }) {
   const [result, setResult] = useState([]);
 
   async function getSearchResult() {
-    const response = await fetch(`${url}search/${searchInfo}`).catch((err) =>
-      alert(err.message)
+    const response = await fetch(`${url}search/${searchInfo}`).catch(
+      (err) => err
     );
     if (response.ok) {
       return response.json();
@@ -49,6 +49,7 @@ function Search({ url }) {
                     name={character.name}
                     image={character.image.url}
                     id={character.id}
+                    biography={character.biography}
                     url={url}
                   />
                 </div>
